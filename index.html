@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAST عكس | Culinary Paradox</title>
+    <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --accent: #FF4D4D;
+            --text: #e0e0e0;
+            --easing: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        body {
+            background: var(--primary);
+            font-family: 'Inter', system-ui;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            mix-blend-mode: difference;
+            z-index: 1000;
+            transition: transform 0.3s var(--easing);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        .logo-reveal {
+            font-size: 8vw;
+            text-align: center;
+            mix-blend-mode: difference;
+        }
+
+        .logo-reveal span {
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        /* Grid Gallery */
+        .grid-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            margin: 10vh 5vw;
+        }
+
+        .grid-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            transition: transform 0.3s var(--easing), box-shadow 0.3s var(--easing);
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s var(--easing);
+        }
+
+        .grid-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Video Section */
+        .video-section {
+            margin: 10vh 0;
+            padding: 0 5vw;
+            text-align: center;
+        }
+
+        .video-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Food Court Section */
+        .food-court {
+            margin: 10vh 5vw;
+            text-align: center;
+        }
+
+        .food-court h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+
+        .brand-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .brand-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s var(--easing), box-shadow 0.3s var(--easing);
+        }
+
+        .brand-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .brand-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .brand-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .brand-card p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Manifesto Section */
+        .manifesto {
+            padding: 10vh 20vw;
+            font-size: 1.5rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* Social Footer */
+        .social-footer {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 5vh 0;
+            flex-wrap: wrap;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text);
+            transition: opacity 0.3s var(--easing);
+        }
+
+        .social-link:hover {
+            opacity: 0.8;
+        }
+
+        .social-link svg {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" data-scroll-section>
+        <video class="brand-video" autoplay muted loop>
+            <source src="brand-loop.mp4" type="video/mp4">
+        </video>
+        <h1 class="logo-reveal" data-splitting>
+            LAST 
+            <span style="color: var(--accent)">عكس</span>
+        </h1>
+    </section>
+
+    <!-- Grid Gallery -->
+    <div class="grid-gallery">
+        <div class="grid-item">
+            <img data-src="gallery1.jpg" loading="lazy">
+        </div>
+        <div class="grid-item">
+            <img data-src="gallery2.jpg" loading="lazy">
+        </div>
+        <div class="grid-item">
+            <img data-src="gallery3.jpg" loading="lazy">
+        </div>
+        <div class="grid-item">
+            <img data-src="gallery4.jpg" loading="lazy">
+        </div>
+        <div class="grid-item">
+            <img data-src="gallery5.jpg" loading="lazy">
+        </div>
+        <div class="grid-item">
+            <img data-src="gallery6.jpg" loading="lazy">
+        </div>
+        <div class="grid-item">
+            <img data-src="gallery7.jpg" loading="lazy">
+        </div>
+        <div class="grid-item">
+            <img data-src="gallery8.jpg" loading="lazy">
+        </div>
+    </div>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <h2>Discover Our Story</h2>
+        <div class="video-container">
+            <video autoplay muted loop>
+                <source src="new-video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </section>
+
+    <!-- Food Court Section -->
+    <section class="food-court">
+        <h2>Explore Our Food Court</h2>
+        <div class="brand-grid">
+            <div class="brand-card">
+                <img src="brand1.jpg" alt="Brand 1">
+                <h3>Big Bites</h3>
+                <p>Best Burger You can taste</p>
+            </div>
+            <div class="brand-card">
+                <img src="brand2.jpg" alt="Brand 2">
+                <h3>The Best</h3>
+                <p>The best fast food in zagazig</p>
+        <!-- </div>
+            <div class="brand-card">
+                <img src="brand3.jpg" alt="Brand 3">
+                <h3>Brand 3</h3>
+                <p>Healthy and fresh options for everyone.</p>
+            </div>
+            <div class="brand-card">
+                <img src="brand4.jpg" alt="Brand 4">
+                <h3>Brand 4</h3>
+                <p>Sweet treats to satisfy your cravings.</p>
+            </div>-->
+        </div>
+    </section>
+
+    <!-- Manifesto Section -->
+    <section class="manifesto">
+        <p data-scroll data-scroll-speed="0.5">
+            Last عكس - Where reality reflects differently
+        </p>
+    </section>
+
+    <!-- Social Footer -->
+    <footer class="social-footer">
+        <a href="https://www.facebook.com/profile.php?id=61569125451506" target="_blank" class="social-link">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.35c0 .733.593 1.325 1.325 1.325h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.732 0 1.325-.593 1.325-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+            </svg>
+            Follow on Facebook
+        </a>
+        <a href="https://www.tiktok.com/@cafe_last_3akss" target="_blank" class="social-link">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.692 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V6.79a4.831 4.831 0 0 1-3.771 1.915 4.828 4.828 0 0 1-1.22-.152z"/>
+            </svg>
+            Follow on TikTok
+        </a>
+        <a href="https://www.instagram.com/cafe_last_3akss" target="_blank" class="social-link">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+            </svg>
+            Follow on Instagram
+        </a>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+
+    <script>
+        // Smooth Scroll
+        const lenis = new Lenis({ lerp: 0.1 })
+        const raf = (time) => {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+        requestAnimationFrame(raf)
+
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor')
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.5,
+                ease: 'power3.out'
+            })
+        })
+
+        // Logo Reveal Animation
+        gsap.from('.logo-reveal span', {
+            duration: 2,
+            yPercent: 100,
+            stagger: 0.1,
+            ease: 'expo.out'
+        })
+
+        // Image Lazy Loading
+        const images = document.querySelectorAll('[data-src]')
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.src = entry.target.dataset.src
+                    observer.unobserve(entry.target)
+                }
+            })
+        })
+
+        images.forEach(img => observer.observe(img))
+    </script>
+</body>
+</html>
